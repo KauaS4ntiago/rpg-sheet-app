@@ -13,6 +13,7 @@ import Minus from '../../assets/minus.svg'
 import ArrowLeft from '../../assets/arrow-left.svg'
 import ArrowRight from '../../assets/arrow-right.svg'
 import SanityBar from '../../assets/sanityBar.svg'
+import Plus from '../../assets/plus.svg'
 
 interface Attribute { id: number; name: string; value: number }
 interface Skill { id: number; name: string; value: number }
@@ -232,6 +233,12 @@ function CharacterSheet() {
             </div>
             <div className='CharacterSheet-content'>
                 <div className='CharacterSheet-character'>
+                    <div className='edit-bottom'>
+                        <button  className={isEditing ? 'edit-button active' : 'edit-button'} 
+                        onClick={() => setIsEditing(prev => !prev)}>
+                        <img src={Edit} alt="botão de edição"/>
+                        </button>   
+                    </div>
                     <h2>Ficha de personagem</h2>
                     <div className='CharacterSheet-profile'>
                         <div className='profile-image-wrapper'>
@@ -355,7 +362,15 @@ function CharacterSheet() {
                 </div>
 
                 <div className='CharacterSheet-skill'>
-                    <h2>Perícias</h2>
+                    <div className='section-header'>
+                        {isEditing && <span className='header-spacer' />}
+                        <h2>Perícias</h2>
+                        {isEditing && (
+                            <button className='add-button' onClick={addSkill}>
+                                <img src={Plus} alt="Adicionar perícia"/>
+                            </button>
+                        )}
+                    </div>   
                     <ol>
                         {character.skills.map(skill => (
                             <li key={skill.id}>
@@ -381,40 +396,52 @@ function CharacterSheet() {
                             </li>
                         ))}
                     </ol>
-                    {isEditing && (
-                        <button onClick={addSkill}>+ Nova perícia</button>
-                    )}
                 </div>
 
                 <div className='CharacterSheet-abilities-inventory'>
-                    <button  className={isEditing ? 'edit-button active' : 'edit-button'} 
-                        onClick={() => setIsEditing(prev => !prev)}>
-                        <img src={Edit} alt="botão de edição"/>
-                    </button>
-                    <h2>Habilidades</h2>
+                    <div className='section-header'>
+                        {isEditing && <span className='header-spacer' />}
+                        <h2>Habilidades</h2>
+                        {isEditing && (
+                            <button className='add-button' onClick={addAbility}>
+                                <img src={Plus} alt="Adicionar habilidade"/>
+                            </button>
+                        )}
+                    </div>
                     <ol>
                         {character.abilities.map(ability => (
                             isEditing ? (
-                                <li key={ability.id}>
-                                    <input
-                                        type="text"
-                                        aria-label="nome da habilidade"
-                                        value={ability.name}
-                                        onChange={e => patchAbility(ability.id, { name: e.target.value })}
-                                        onBlur={() => saveAbility(ability)}
-                                    />
-                                    <textarea className='ability-description'
-                                        aria-label="descrição da habilidade"
-                                        value={ability.description}
-                                        onChange={e => patchAbility(ability.id, { description: e.target.value })}
-                                        onBlur={() => saveAbility(ability)}
-                                    />
-                                    <input
-                                        type="file"
-                                        accept='image/*'
-                                        aria-label="imagem"
-                                        onChange={e => handleAbilityImageChange(ability, e)}
-                                    />
+                                <li key={ability.id} className='AbilityCard-container ability-edit-item'>
+                                    <label htmlFor={`ability-image-${ability.id}`} className="ability-image-label">
+                                        <img
+                                            src={ability.image ? getImageUrl(ability.image, 'abilities') : "https://placehold.co/50x50"}
+                                            alt="Imagem da habilidade"
+                                        />
+                                        <input
+                                            id={`ability-image-${ability.id}`}
+                                            type="file"
+                                            accept='image/*'
+                                            aria-label="imagem"
+                                            onChange={e => handleAbilityImageChange(ability, e)}
+                                            hidden
+                                        />
+                                    </label>
+                                    <div className='AbilityCard-text'>
+                                        <input
+                                            type="text"
+                                            className='ability-name-input'
+                                            aria-label="nome da habilidade"
+                                            value={ability.name}
+                                            onChange={e => patchAbility(ability.id, { name: e.target.value })}
+                                            onBlur={() => saveAbility(ability)}
+                                        />
+                                        <textarea className='ability-description'
+                                            aria-label="descrição da habilidade"
+                                            value={ability.description}
+                                            onChange={e => patchAbility(ability.id, { description: e.target.value })}
+                                            onBlur={() => saveAbility(ability)}
+                                        />
+                                    </div>
                                 </li>
                             ) : (
                                 <AbilityCard
@@ -426,9 +453,6 @@ function CharacterSheet() {
                             )
                         ))}
                     </ol>
-                    {isEditing && (
-                        <button onClick={addAbility}>+ Nova habilidade</button>
-                    )}
                     <h2>Anotações</h2>
                     <textarea
                         aria-label="anotações"

@@ -7,13 +7,13 @@ html {
 }
 
 .DashBoard-content {
-    flex: 1; /* Faz o container ocupar todo o espaço restante da tela */
+    flex: 1; 
     overflow-y: auto; 
     overflow-x: hidden;
 
-    /* Estilização do scrollbar interna */
+    
     &::-webkit-scrollbar {
-        width: 0.35rem; /* Mais fino que os 6px anteriores */
+        width: 0.35rem; 
     }
 
     &::-webkit-scrollbar-track {
@@ -21,22 +21,22 @@ html {
     }
 
     &::-webkit-scrollbar-thumb {
-        background: #23476A; /* Seu azul atual (mude para #007bff se quiser um azul mais vivo) */
+        background: #23476A; 
         border-radius: 999px;
 
         &:hover {
-            background: #2f5f8f; /* Azul um pouco mais claro no hover */
+            background: #2f5f8f; 
         }
     }
 }
 
 .DashBoard-container {
     width: 100vw;
-    height: 100vh; /* Mudado de min-height para height */
-    display: flex; /* Ativa o flexbox */
-    flex-direction: column; /* Alinha os itens (NavBar e Content) verticalmente */
+    height: 100vh;
+    display: flex; 
+    flex-direction: column; 
 
-    padding-top: 90px; /* Mantém o espaço da sua NavBar */
+    padding-top: 90px; 
     box-sizing: border-box;
 }
 
@@ -47,11 +47,9 @@ html {
     width: 100%;
     padding: 15px 0;
     box-sizing: border-box;
-
-    /* Faz o header ficar fixo no topo do scroll e sobrepor a lista */
     position: sticky;
     top: 0;
-    z-index: 10; /* Garante que ele fique em uma camada "acima" dos cards */
+    z-index: 10; 
 }
 
 .DashBoard-header h1 {
@@ -59,7 +57,7 @@ html {
 
     display: block;
 
-    left:50.5%;
+    left:50.6%;
 
     transform: translateX(-50%);
 
@@ -76,15 +74,21 @@ html {
     margin-left: auto;
 
     padding: 1rem;
-}
 
-.DashBoard-button img {
-    transition: transform 0.4s;
-
-    &:hover {
-        transform: scale(1.2);
+            img {
+                transform: scale(0.8);
+                transition: transform 0.3s;
+                display: block;
+        &:hover{
+          transform: scale(1);
+        }
+        &:active{
+          transform: scale(0.7);
+        }
     }
 }
+
+
 
 .Dashboard-list {
     list-style: none;

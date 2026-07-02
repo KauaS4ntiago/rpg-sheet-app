@@ -12,6 +12,12 @@ body {
   width: 100%;
   background: #fff;
   font-family: system-ui, -apple-system, sans-serif;
+
+    input {
+      border:none;
+      outline: none;
+      max-width: 10rem;
+    }
 }
 
 /* ============ Header ============ */
@@ -79,8 +85,41 @@ body {
 .CharacterSheet-character {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1.1rem;
   padding-left: 4rem;
+  position: relative;
+  bottom: 4.5rem
+}
+
+.edit-bottom button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  width: fit-content;
+  margin-left: auto;
+  position: relative;
+  right: 4.4rem;
+  top:4.5rem;
+
+    &.active img {
+      transform: scale(1.1);
+          &:active{
+            transform: scale(0.8);
+          }
+    }
+    img {
+      transform: scale(0.8);
+      transition: transform 0.3s;
+      display: block;
+
+        &:hover{
+          transform: scale(1);
+        }
+        &:active{
+          transform: scale(0.7);
+        }
+    }
 }
 
 .CharacterSheet-character > h2 {
@@ -107,11 +146,20 @@ body {
   background: none;
   cursor: pointer;
   padding: 0;
-  left: 24.6rem;
-  top: -12rem;
+  left: 24.08rem;
+  top: -14rem;
 
   img {
-    width: 2.2rem;
+    transform: scale(0.7);
+    transition: transform 0.3s;
+    display: block;
+
+    &:hover{
+          transform: scale(0.9);
+        }
+    &:active{
+          transform: scale(0.7);
+        }
   }
 }
 
@@ -130,6 +178,10 @@ body {
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid #23476A;
+  min-width: 11rem;
+  min-height: 11rem;
+  max-width: 11rem;
+  max-height: 11rem;
 }
 
 /* Escudo (defesa) */
@@ -236,6 +288,25 @@ body {
   color: #1a1a1a;
   position: relative;
   bottom: 0.6rem;
+  right: 1.9rem;
+  width: 16rem;
+  text-align: center;
+}
+
+.profile-info input[type="text"] {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  font-family: inherit;
+  position: relative;
+  bottom: 0.6rem;
+  left: 1.2rem;
+  width: 16rem;
+  text-align: center;
+  border: none;
+  outline: none;
+  background: transparent;
 }
 
 /* Barra de vida */
@@ -292,6 +363,7 @@ body {
   gap: 1rem;
   position: relative;
   right: 3rem;
+  top: 1rem;
 }
 .attribute-icon {
   position: relative;
@@ -372,39 +444,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  position: relative;
-  bottom: 3.3rem;
-}
-
-.CharacterSheet-abilities-inventory button {
-  border: none;
-  background: none;
-  cursor: pointer;
-  padding: 0;
-  width: fit-content;
-  margin-left: auto;
-  position: relative;
-  top: 3rem;
-
-    img {
-      transform: scale(0.8);
-      transition: transform 0.3s;
-      display: block;
-
-        &:hover{
-          transform: scale(1);
-        }
-        &:active{
-          transform: scale(0.7);
-        }
-    }
-}
-
-.CharacterSheet-abilities-inventory button.active img {
-  transform: scale(1.1);
-      &:active{
-          transform: scale(0.8);
-        }
 }
 
 .CharacterSheet-abilities-inventory h2 {
@@ -530,8 +569,59 @@ textarea.ability-description {
   resize: none;
 }
 
+.ability-image-label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.AbilityCard-text input.ability-name-input {
+  font-family: inherit;
+  font-weight: 700;
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  margin-bottom: 0.2rem;
+}
+
 .character-image-label {
   cursor: pointer;
   display: block;
 }
 
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+
+  h2 {
+    margin: 0;
+  }
+
+  .add-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+
+    img {
+      width: 1.6rem;
+      transition: transform 0.4s;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+
+      &:active {
+        transform: scale(1);
+      }
+    }
+  }
+}
+
+.header-spacer {
+  width: 1.6rem; 
+}
