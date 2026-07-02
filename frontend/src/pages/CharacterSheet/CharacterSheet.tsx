@@ -34,8 +34,6 @@ interface CharacterData {
     abilities: Ability[];
 }
 
-const API_URL = 'http://127.0.0.1:5000';
-
 const authHeaders = () => ({
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -57,7 +55,7 @@ function CharacterSheet() {
     const [isEditing, setIsEditing] = useState(false);
 
     useEffect(() => {
-        fetch(`${API_URL}/characters/${id}`, { headers: authHeaders() })
+        fetch(`/characters/${id}`, { headers: authHeaders() })
             .then(res => { if (!res.ok) throw new Error("Erro ao carregar ficha"); return res.json(); })
             .then((data: CharacterData) => {
                 setCharacter(data);
@@ -76,7 +74,7 @@ function CharacterSheet() {
     const getImageUrl = (path: string, type: 'abilities' | 'characters') => {
         if (!path) return '';
         if (path.startsWith('blob:') || path.startsWith('http')) return path;
-        return `${API_URL}/${type}/uploads/${path}`;
+        return `/${type}/uploads/${path}`;
     };
 
     const updateCharacter = (payload: Partial<CharacterData>, imageFile?: File) => {
@@ -87,7 +85,7 @@ function CharacterSheet() {
         });
         if (imageFile) formData.append('image', imageFile);
 
-        fetch(`${API_URL}/characters/${id}`, {
+        fetch(`/characters/${id}`, {
             method: 'PUT',
             headers: authHeadersFormData(),
             body: formData
@@ -146,13 +144,13 @@ function CharacterSheet() {
     };
 
     const saveAttribute = (attr: Attribute) =>
-        fetch(`${API_URL}/attributes/${attr.id}`, {
+        fetch(`/attributes/${attr.id}`, {
             method: 'PUT', headers: authHeaders(), body: JSON.stringify({ value: attr.value })
         }).catch(err => console.error(err));
 
     const saveSkill = (skill: Skill) => {
         if (skill.id < 0) {
-            fetch(`${API_URL}/skills`, {
+            fetch(`/skills`, {
                 method: 'POST', headers: authHeaders(),
                 body: JSON.stringify({ character_id: character!.id, name: skill.name, value: skill.value })
             })
@@ -164,7 +162,7 @@ function CharacterSheet() {
                 } : prev);
             }).catch(err => console.error(err));
         } else {
-            fetch(`${API_URL}/skills/${skill.id}`, {
+            fetch(`/skills/${skill.id}`, {
                 method: 'PUT', headers: authHeaders(),
                 body: JSON.stringify({ name: skill.name, value: skill.value })
             }).catch(err => console.error(err));
@@ -179,7 +177,7 @@ function CharacterSheet() {
 
         if (ability.id < 0) {
             formData.append('character_id', String(character!.id));
-            fetch(`${API_URL}/abilities`, {
+            fetch(`/abilities`, {
                 method: 'POST',
                 headers: authHeadersFormData(),
                 body: formData
@@ -192,7 +190,7 @@ function CharacterSheet() {
                 } : prev);
             }).catch(err => console.error(err));
         } else {
-            fetch(`${API_URL}/abilities/${ability.id}`, {
+            fetch(`/abilities/${ability.id}`, {
                 method: 'PUT',
                 headers: authHeadersFormData(),
                 body: formData

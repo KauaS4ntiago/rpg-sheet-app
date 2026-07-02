@@ -17,7 +17,7 @@ function DashBoard() {
     const loadCharacters = () => {
     const userId = localStorage.getItem('user_id')
 
-    fetch(`http://127.0.0.1:5000/characters/user/${userId}`, {
+    fetch(`/characters/user/${userId}`, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
         }
@@ -34,7 +34,7 @@ function DashBoard() {
     const getImageUrl = (path: string) => {
         if (!path) return '';
         if (path.startsWith('http')) return path; // já é uma URL completa (ex: placehold.co)
-    return `http://127.0.0.1:5000/characters/uploads/${path}`;
+    return `/characters/uploads/${path}`;
     };
 
     useEffect(() => { loadCharacters()},[])
@@ -77,7 +77,7 @@ function DashBoard() {
                 { name: 'Bola de Fogo', description: 'Uma bola de fogo poderosa', image: null }
             ]
         }
-        fetch('http://127.0.0.1:5000/characters', {
+        fetch('/characters', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
