@@ -14,6 +14,7 @@ import ArrowLeft from '../../assets/arrow-left.svg'
 import ArrowRight from '../../assets/arrow-right.svg'
 import SanityBar from '../../assets/sanityBar.svg'
 import Plus from '../../assets/plus.svg'
+import UploadIcon  from '../../assets/upload.svg'
 
 interface Attribute { id: number; name: string; value: number }
 interface Skill { id: number; name: string; value: number }
@@ -247,6 +248,9 @@ function CharacterSheet() {
                                         src={character.image ? getImageUrl(character.image, 'characters') : "https://placehold.co/200x200"}
                                         alt="imagem do personagem"
                                     />
+                                    <div className="image-upload-overlay">
+                                        <img src={UploadIcon} alt="trocar imagem" className="upload-icon" />
+                                    </div>
                                     <input
                                         id="character-image-input"
                                         type="file"
@@ -415,6 +419,7 @@ function CharacterSheet() {
                                             src={ability.image ? getImageUrl(ability.image, 'abilities') : "https://placehold.co/50x50"}
                                             alt="Imagem da habilidade"
                                         />
+
                                         <input
                                             id={`ability-image-${ability.id}`}
                                             type="file"

@@ -13,11 +13,11 @@ body {
   background: #fff;
   font-family: system-ui, -apple-system, sans-serif;
 
-    input {
-      border:none;
-      outline: none;
-      max-width: 10rem;
-    }
+  input {
+    border: none;
+    outline: none;
+    max-width: 10rem;
+  }
 }
 
 /* ============ Header ============ */
@@ -31,41 +31,41 @@ body {
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
   position: relative;
-}
 
-.CharacterSheet-header button {
-  border: none;
-  background: none;
-  color: #f1f1f1;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  font-weight: 700;
-  font-size: 1rem;
-}
+  button {
+    border: none;
+    background: none;
+    color: #f1f1f1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1rem;
+  }
 
-.CharacterSheet-header > button:first-child img {
-  width: 1.8rem;
-}
+  > button:first-child img {
+    width: 1.8rem;
+  }
 
-.CharacterSheet-header h1 {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 0;
-  font-size: 1.6rem;
-  font-weight: 800;
-  letter-spacing: 0.5px;
+  h1 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+  }
 }
 
 .CharacterSheet-header-buttons {
   display: flex;
   gap: 1.5rem;
-}
 
-.CharacterSheet-header-buttons button img {
-  width: 1.6rem;
-  margin-right: 0.5rem;
+  button img {
+    width: 1.6rem;
+    margin-right: 0.5rem;
+  }
 }
 
 /* ============ Content ============ */
@@ -80,7 +80,6 @@ body {
   background: #f5f5f5;
 }
 
-
 /* ============ Coluna 1: Personagem ============ */
 .CharacterSheet-character {
   display: flex;
@@ -88,7 +87,12 @@ body {
   gap: 1.1rem;
   padding-left: 4rem;
   position: relative;
-  bottom: 4.5rem
+  bottom: 4.5rem;
+
+  > h2 {
+    text-align: center;
+    padding-bottom: 1.1rem;
+  }
 }
 
 .edit-bottom button {
@@ -100,31 +104,28 @@ body {
   margin-left: auto;
   position: relative;
   right: 4.4rem;
-  top:4.5rem;
+  top: 4.5rem;
 
-    &.active img {
-      transform: scale(1.1);
-          &:active{
-            transform: scale(0.8);
-          }
-    }
-    img {
+  &.active img {
+    transform: scale(1.1);
+
+    &:active {
       transform: scale(0.8);
-      transition: transform 0.3s;
-      display: block;
-
-        &:hover{
-          transform: scale(1);
-        }
-        &:active{
-          transform: scale(0.7);
-        }
     }
-}
+  }
 
-.CharacterSheet-character > h2 {
-  text-align: center;
-  padding-bottom: 1.1rem;
+  img {
+    transform: scale(0.8);
+    transition: transform 0.3s;
+    display: block;
+
+    &:hover {
+      transform: scale(1);
+    }
+    &:active {
+      transform: scale(0.7);
+    }
+  }
 }
 
 .CharacterSheet-profile {
@@ -140,26 +141,25 @@ body {
 /* Botão de dado (canto superior direito da foto) */
 .dice-button {
   position: relative;
-  top: 0;
+  top: -14rem;
   right: 0;
+  left: 24.08rem;
   border: none;
   background: none;
   cursor: pointer;
   padding: 0;
-  left: 24.08rem;
-  top: -14rem;
 
   img {
     transform: scale(0.7);
     transition: transform 0.3s;
     display: block;
 
-    &:hover{
-          transform: scale(0.9);
-        }
-    &:active{
-          transform: scale(0.7);
-        }
+    &:hover {
+      transform: scale(0.9);
+    }
+    &:active {
+      transform: scale(0.7);
+    }
   }
 }
 
@@ -175,6 +175,7 @@ body {
 .Profile-img {
   width: 100%;
   height: 100%;
+  display: block;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid #23476A;
@@ -184,29 +185,83 @@ body {
   max-height: 11rem;
 }
 
+.character-image-label {
+  cursor: pointer;
+  display: block;
+  position: relative;
+  width: 11rem;
+  height: 11rem;
+  border-radius: 50%;
+}
+
+.character-image-label {
+  cursor: pointer;
+  display: block;
+  position: relative; /* necessário pra overlay se posicionar em relação a este label */
+}
+
+.image-upload-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%; /* acompanha o border-radius circular da foto de perfil */
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+
+  .upload-icon {
+    width: 2.5rem;
+  }
+}
+
+.character-image-label:hover .image-upload-overlay {
+  opacity: 1;
+}
+
 /* Escudo (defesa) */
 .Shield {
   position: absolute;
   top: auto;
-  right: -10px;
+  right: -16.2rem;
+  bottom: 4.7rem;
   width: 3rem;
   height: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  bottom: 4.7rem;
-  right: -16.2rem;
-}
-.Shield img {
-  width: 100%;
-  height: 100%;
-}
-.Shield p {
-  position: absolute;
-  margin: 0;
-  color: #f1f1f1;
-  font-weight: 700;
-  font-size: 1rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+
+  p {
+    position: absolute;
+    margin: 0;
+    color: #f1f1f1;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  input[type="number"] {
+    position: absolute;
+    width: 2rem;
+    border: none;
+    outline: none;
+    background: transparent;
+    text-align: center;
+    color: #f1f1f1;
+    font-weight: 700;
+    font-size: 1rem;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
 }
 
 /* Barra de sanidade (lateral esquerda da foto) */
@@ -217,61 +272,86 @@ body {
   transform: translateY(-50%);
   width: 44px;
   height: 220px;
+  pointer-events: none;
+
+  .sanityBar-img {
+    width: 9rem;
+    height: 100%;
+    position: relative;
+    top: 2.1rem;
+  }
+
+  .sanityBar-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+    color: #f1f1f1;
+    font-weight: 700;
+    font-size: 0.8rem;
+    pointer-events: auto;
+
+    button {
+      border: none;
+      background: none;
+      cursor: pointer;
+      padding: 0;
+
+      &:first-child {
+        position: relative;
+        top: 3rem;
+        left: 0.1rem;
+      }
+
+      &:last-child {
+        position: relative;
+        top: 0.86rem;
+        left: 6.8rem;
+      }
+
+      img {
+        width: 1rem;
+      }
+    }
+
+    .sanity-current {
+      position: relative;
+      top: 4rem;
+      left: 0.3rem;
+    }
+
+    .sanity-max {
+      position: relative;
+      top: 2.8rem;
+      left: 3.5rem;
+    }
+
+    .sanity-divider {
+      position: relative;
+      top: 3.7rem;
+      left: 1.5rem;
+    }
+  }
 }
-.sanityBar-img {
-  width: 9rem;
-  height: 100%;
-  position: relative;
-  top: 2.1rem;
-}
-.sanityBar-content {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 6px 0;
+
+input.sanity-max {
+  width: 2rem;
+  border: none;
+  outline: none;
+  background: transparent;
+  text-align: center;
   color: #f1f1f1;
   font-weight: 700;
   font-size: 0.8rem;
-}
-.sanityBar-content button {
-  border: none;
-  background: none;
-  cursor: pointer;
-  padding: 0;
-}
 
-.sanityBar-content button:first-child {
-  position: relative;
-  top: 3rem;
-  left: 0.1rem;
-}
-
-.sanityBar-content button:last-child {
-  position: relative;
-  top: 0.86rem;
-  left: 6.8rem;
-}
-
-.sanityBar-content button img {
-  width: 1rem;
-}
-.sanity-current {
-  position: relative;
-  top: 4rem;
-  left: 0.3rem;
-}
-.sanity-max {
-  position: relative;
-  top: 2.8rem;
-  left: 3.5rem;
-}
-.sanity-divider {
-  position: relative;
-  top: 3.7rem;
-  left: 1.5rem;
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
 }
 
 /* Nome do personagem */
@@ -280,33 +360,34 @@ body {
   grid-row: 2;
   display: flex;
   align-items: center;
-}
-.profile-info h3 {
-  margin: 0;
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: #1a1a1a;
-  position: relative;
-  bottom: 0.6rem;
-  right: 1.9rem;
-  width: 16rem;
-  text-align: center;
-}
 
-.profile-info input[type="text"] {
-  margin: 0;
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: #1a1a1a;
-  font-family: inherit;
-  position: relative;
-  bottom: 0.6rem;
-  left: 1.2rem;
-  width: 16rem;
-  text-align: center;
-  border: none;
-  outline: none;
-  background: transparent;
+  h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    position: relative;
+    bottom: 0.6rem;
+    right: 1.9rem;
+    width: 16rem;
+    text-align: center;
+  }
+
+  input[type="text"] {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    font-family: inherit;
+    position: relative;
+    bottom: 0.6rem;
+    left: 1.2rem;
+    width: 16rem;
+    text-align: center;
+    border: none;
+    outline: none;
+    background: transparent;
+  }
 }
 
 /* Barra de vida */
@@ -327,12 +408,14 @@ body {
   position: relative;
   right: 2.2rem;
   bottom: 0.5rem;
+
+  > img {
+    width: 4rem;
+    position: absolute;
+    right: 14rem;
+  }
 }
-.lifeBar-container > img {
-  width: 4rem;
-  position: absolute;
-  right: 14rem;
-}
+
 .lifeBar {
   display: flex;
   align-items: center;
@@ -343,17 +426,38 @@ body {
   gap: 0;
   position: relative;
   left: 0.4rem;
-}
-.lifeBar button {
-  border: none;
-  background: none;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-}
-.lifeBar button img {
-  width: 1rem;
+
+  button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 1rem;
+    }
+  }
+
+  input[type="number"] {
+    width: 2rem;
+    border: none;
+    outline: none;
+    background: transparent;
+    text-align: center;
+    color: #f1f1f1;
+    font-weight: 700;
+    font-size: 0.95rem;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+
 }
 
 /* Atributos */
@@ -364,7 +468,15 @@ body {
   position: relative;
   right: 3rem;
   top: 1rem;
+
+  h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
 }
+
 .attribute-icon {
   position: relative;
   width: 4rem;
@@ -372,71 +484,91 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.attribute-icon img {
-  width: 100%;
-  height: 100%;
-}
-.attribute-icon p {
-  position: absolute;
-  margin: 0;
-  color: #f1f1f1;
-  font-weight: 700;
-  font-size: 1.4rem;
-}
-.CharacterSheet-attributes h2 {
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #1a1a1a;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+
+  p {
+    position: absolute;
+    margin: 0;
+    color: #f1f1f1;
+    font-weight: 700;
+    font-size: 1.4rem;
+  }
+
+  input[type="number"] {
+    position: absolute;
+    width: 2.5rem;
+    border: none;
+    outline: none;
+    background: transparent;
+    text-align: center;
+    color: #f1f1f1;
+    font-weight: 700;
+    font-size: 1.4rem;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
 }
 
 /* ============ Coluna 2: Perícias ============ */
-.CharacterSheet-skill h2 {
-  text-align: center;
-  margin: 0 0 1rem 0;
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #1a1a1a;
-}
-.CharacterSheet-skill ol {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-  max-height: 78vh;
-  max-width: 25rem;
-  overflow-y: auto;
-  padding-right: 0.5rem;
-  margin: 0 auto;
-}
-.CharacterSheet-skill li {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  align-items: center;
-  gap: 0.6rem;
-}
-.CharacterSheet-skill li p {
-  margin: 0;
-  font-size: 1rem;
-  color: #1a1a1a;
-}
-.CharacterSheet-skill input[type="number"] {
-  width: 3.2rem;
-  height: 2rem;
-  border: 1.5px solid #23476A;
-  border-radius: 4px;
-  text-align: center;
-  font-size: 0.95rem;
-  background: #fff;
-  color: #1a1a1a;
-}
-.CharacterSheet-skill input[type="number"]::-webkit-outer-spin-button,
-.CharacterSheet-skill input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+.CharacterSheet-skill {
+  h2 {
+    text-align: center;
+    margin: 0 0 1rem 0;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #1a1a1a;
+  }
+
+  ol {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    max-height: 78vh;
+    max-width: 25rem;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    margin: 0 auto;
+  }
+
+  li {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 0.6rem;
+
+    p {
+      margin: 0;
+      font-size: 1rem;
+      color: #1a1a1a;
+    }
+  }
+
+  input[type="number"] {
+    width: 3.2rem;
+    height: 2rem;
+    border: 1.5px solid #23476A;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.95rem;
+    background: #fff;
+    color: #1a1a1a;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
 }
 
 /* ============ Coluna 3: Habilidades + Inventário ============ */
@@ -444,114 +576,40 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-}
 
-.CharacterSheet-abilities-inventory h2 {
-  text-align: center;
-  margin: 0 0 0.6rem 0;
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #1a1a1a;
-}
-.CharacterSheet-abilities-inventory ol {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  max-height: 50vh;
-  overflow-y: auto;
-  padding-right: 0.5rem;
-}
-.CharacterSheet-abilities-inventory textarea {
-  width: 100%;
-  height: 9.2rem;
-  border: 1.5px solid #c2d6eb;
-  border-radius: 6px;
-  padding: 0.8rem;
-  font-family: inherit;
-  font-size: 0.95rem;
-  background: #dfe8f1;
-  color: #1a1a1a;
-  resize: vertical;
-  outline: none;
-  resize: none;
-}
-
-/* ============ Responsivo ============ */
-@media (max-width: 1000px) {
-  .CharacterSheet-content {
-    grid-template-columns: 1fr;
-  }
-  .CharacterSheet-header h1 {
-    font-size: 1.2rem;
+  h2 {
+    text-align: center;
+    margin: 0 0 0.6rem 0;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #1a1a1a;
   }
 
-  body{
-    overflow: auto;
+  ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    max-height: 50vh;
+    overflow-y: auto;
+    padding-right: 0.5rem;
   }
-}
 
-.attribute-icon input[type="number"] {
-  position: absolute;
-  width: 2.5rem;
-  border: none;
-  outline: none;
-  background: transparent;
-  text-align: center;
-  color: #f1f1f1;
-  font-weight: 700;
-  font-size: 1.4rem;
-}
-
-input.sanity-max {
-  width: 2rem;
-  border: none;
-  outline: none;
-  background: transparent;
-  text-align: center;
-  color: #f1f1f1;
-  font-weight: 700;
-  font-size: 0.8rem;
-}
-
-.lifeBar input[type="number"] {
-  width: 2rem;
-  border: none;
-  outline: none;
-  background: transparent;
-  text-align: center;
-  color: #f1f1f1;
-  font-weight: 700;
-  font-size: 0.95rem;
-}
-
-.attribute-icon input[type="number"]::-webkit-outer-spin-button,
-.attribute-icon input[type="number"]::-webkit-inner-spin-button,
-input.sanity-max::-webkit-outer-spin-button,
-input.sanity-max::-webkit-inner-spin-button,
-.lifeBar input[type="number"]::-webkit-outer-spin-button,
-.lifeBar input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.Shield input[type="number"] {
-  position: absolute;
-  width: 2rem;
-  border: none;
-  outline: none;
-  background: transparent;
-  text-align: center;
-  color: #f1f1f1;
-  font-weight: 700;
-  font-size: 1rem;
-}
-.Shield input[type="number"]::-webkit-outer-spin-button,
-.Shield input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+  textarea {
+    width: 100%;
+    height: 9.2rem;
+    border: 1.5px solid #c2d6eb;
+    border-radius: 6px;
+    padding: 0.8rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    background: #dfe8f1;
+    color: #1a1a1a;
+    outline: none;
+    resize: none;
+  }
 }
 
 textarea.ability-description {
@@ -564,7 +622,6 @@ textarea.ability-description {
   font-size: 0.95rem;
   background: #dfe8f1;
   color: #1a1a1a;
-  resize: vertical;
   outline: none;
   resize: none;
 }
@@ -573,6 +630,26 @@ textarea.ability-description {
   cursor: pointer;
   display: flex;
   align-items: center;
+  position: relative; /* necessário pra overlay se posicionar em relação a este label */
+
+  .image-upload-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+
+    .upload-icon {
+      width: 1.5rem;
+    }
+  }
+
+  &:hover .image-upload-overlay {
+    opacity: 1;
+  }
 }
 
 .AbilityCard-text input.ability-name-input {
@@ -583,11 +660,6 @@ textarea.ability-description {
   background: transparent;
   width: 100%;
   margin-bottom: 0.2rem;
-}
-
-.character-image-label {
-  cursor: pointer;
-  display: block;
 }
 
 .section-header {
@@ -623,5 +695,19 @@ textarea.ability-description {
 }
 
 .header-spacer {
-  width: 1.6rem; 
+  width: 1.6rem;
+}
+
+/* ============ Responsivo ============ */
+@media (max-width: 1000px) {
+  .CharacterSheet-content {
+    grid-template-columns: 1fr;
+  }
+  .CharacterSheet-header h1 {
+    font-size: 1.2rem;
+  }
+
+  body {
+    overflow: auto;
+  }
 }

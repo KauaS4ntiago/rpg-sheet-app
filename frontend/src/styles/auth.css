@@ -36,6 +36,18 @@
     margin-bottom: 10px;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
     gap:5px;
+
+    .auth-error-email {
+        color: #e0422a;
+        margin:0 0 0.3rem 15px;
+        margin-bottom: 0;
+    }
+
+    .auth-error {
+        color: #e0422a;
+        text-align: center;
+        margin: 0.3rem 0;
+    }
 }
 
 .auth-card p{

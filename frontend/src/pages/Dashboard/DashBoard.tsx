@@ -74,7 +74,7 @@ function DashBoard() {
                 { name: 'Perícia 10', value: 0 }
             ],
             abilities: [
-                { name: 'Bola de Fogo', description: 'Uma bola de fogo poderosa', image: null }
+                { name: 'Habilidade nova', description: 'descrição de habilidade nova', image: null }
             ]
         }
         fetch('/characters', {
