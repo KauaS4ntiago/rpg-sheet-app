@@ -1,16 +1,22 @@
 .CharacterCard-container {
+    position: relative;
     display: flex;
     flex-direction: column;
+    align-items: center;
     cursor: pointer;
     text-align: center;
     padding-bottom: 3rem;
     transform: scale(1);
     transition: transform 0.4s ease;
+}
 
-    &:hover {
-        transform: scale(1.1);
-        
-    }
+.CharacterCard-container:hover {
+    transform: scale(1.1);
+}
+
+.CharacterCard-container a {
+    text-decoration: none;
+    color: inherit;
 }
 
 .CharacterCard-container img {
@@ -27,7 +33,33 @@
     margin: 1rem;
 }
 
-.CharacterCard-container a {
-    text-decoration: none;
-    color: inherit;
+.CharacterCard-container-all {
+    position: relative;
+    display: inline-block;
+}
+
+.CharacterCard-container-all button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+
+    transform: scale(1);
+    transition: transform 0.2s ease;
+}
+
+.CharacterCard-container-all button:hover {
+    transform: scale(1.2);
+}
+
+.CharacterCard-container-all button img {
+    width: 28px;
+    height: 28px;
+    box-shadow: none;
+    border-radius: 0;
 }

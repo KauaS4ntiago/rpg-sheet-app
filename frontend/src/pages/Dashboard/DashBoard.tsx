@@ -104,7 +104,7 @@ function DashBoard() {
                 </div>
             <ul className='Dashboard-list'>
                 {filteredCharacters.map(character => (
-                    <CharacterCard name={character.name} image={getImageUrl(character.image)} id={character.id} key={character.id}/>
+                    <CharacterCard name={character.name} image={getImageUrl(character.image)} id={character.id} key={character.id}  onDelete={loadCharacters}/>
                 ))}
             </ul>
            </div>

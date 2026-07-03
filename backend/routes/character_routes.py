@@ -167,7 +167,7 @@ def get_character(id):
 @characters_bp.route('/<int:id>', methods=['DELETE'])
 @jwt_required()
 def delete_character(id):
-
+    
     try:
 
         crud.delete(id)

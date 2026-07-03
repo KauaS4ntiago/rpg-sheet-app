@@ -10,8 +10,13 @@ class Character(db.Model):
 
     user_id = db.Column(
         db.Integer,
-        db.ForeignKey('users.id'),
+        db.ForeignKey('users.id', ondelete='CASCADE'),
         nullable=False
+    )
+
+    user = db.relationship(
+        'User',
+        back_populates='characters'
     )
 
     name = db.Column(
@@ -50,4 +55,25 @@ class Character(db.Model):
 
     notes = db.Column(
         db.Text
+    )
+    
+    abilities = db.relationship(
+        'Ability',
+        back_populates='character',
+        cascade='all, delete-orphan',
+        passive_deletes=True
+    )
+
+    skills = db.relationship(
+        'Skill',
+        back_populates='character',
+        cascade='all, delete-orphan',
+        passive_deletes=True
+    )
+
+    attributes = db.relationship(
+        'Attribute',
+        back_populates='character',
+        cascade='all, delete-orphan',
+        passive_deletes=True
     )

@@ -78,8 +78,9 @@ class GenericCrud:
             db.session.delete(obj)
             db.session.commit()
 
-        except Exception:
+        except Exception as e:
             db.session.rollback()
-            raise ValueError("Erro ao remover")
+            print(e)
+            raise ValueError(str(e))
 
         return True
