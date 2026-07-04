@@ -8,13 +8,12 @@ import Dice from '../../assets/dice.svg'
 import Heart from '../../assets/heart.svg'
 import Shield from '../../assets/shield.svg'
 import Hexagon from '../../assets/hexagon.svg'
-import Add from '../../assets/add.svg'
-import Minus from '../../assets/minus.svg'
 import ArrowLeft from '../../assets/arrow-left.svg'
 import ArrowRight from '../../assets/arrow-right.svg'
-import SanityBar from '../../assets/sanityBar.svg'
+import SanityIcon from '../../assets/sanity.svg'
 import Plus from '../../assets/plus.svg'
 import UploadIcon  from '../../assets/upload.svg'
+import Trash from '../../assets/trash.svg'
 
 interface Attribute { id: number; name: string; value: number }
 interface Skill { id: number; name: string; value: number }
@@ -43,6 +42,49 @@ const authHeaders = () => ({
 const authHeadersFormData = () => ({
     'Authorization': `Bearer ${localStorage.getItem('token')}`
 });
+
+interface StatBarProps {
+  variant: 'hp' | 'sanity';
+  icon: string;
+  iconAlt: string;
+  current: number;
+  max: number;
+  isEditing: boolean;
+  onDec: () => void;
+  onInc: () => void;
+  onMaxChange: (value: number) => void;
+  onMaxBlur: (value: number) => void;
+  ariaLabel: string;
+}
+
+function StatBar({
+  variant, icon, iconAlt, current, max, isEditing,
+  onDec, onInc, onMaxChange, onMaxBlur, ariaLabel,
+}: StatBarProps) {
+  return (
+    <div className={`stat-bar stat-bar--${variant}`}>
+      <img src={icon} alt={iconAlt} />
+      <div className='stat-bar__controls'>
+        <button onClick={onDec}><img src={ArrowLeft} alt="Diminuir"/></button>
+        {isEditing ? (
+          <span>
+            {current} /{' '}
+            <input
+              aria-label={ariaLabel}
+              type="number"
+              value={max}
+              onChange={e => onMaxChange(Number(e.target.value))}
+              onBlur={e => onMaxBlur(Number(e.target.value))}
+            />
+          </span>
+        ) : (
+          <span>{current} / {max}</span>
+        )}
+        <button onClick={onInc}><img src={ArrowRight} alt="Aumentar"/></button>
+      </div>
+    </div>
+  );
+}
 
 function CharacterSheet() {
     const { id } = useParams<{ id: string }>();
@@ -225,6 +267,70 @@ function CharacterSheet() {
         return <div className="loading-screen">Carregando Grimório / Ficha de Personagem...</div>;
     }
 
+    async function deleteHandleSkill(id:number) {
+
+        try {
+            const response = await fetch(`/skills/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+
+            const data = await response.json()
+
+            if (!response.ok) {
+                alert(data.error)
+                return
+            }
+
+            setCharacter(prev =>
+            prev
+                ? {
+                      ...prev,
+                      skills: prev.skills.filter(skill => skill.id !== id)
+                  }
+                : prev
+            );
+
+        } catch (error) {
+            console.error(error)
+            alert('Erro ao conectar ao servidor.')
+        }
+    }
+
+    async function deleteHandleAbility(id:number) {
+
+        try {
+            const response = await fetch(`/abilities/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+
+            const data = await response.json()
+
+            if (!response.ok) {
+                alert(data.error)
+                return
+            }
+
+            setCharacter(prev =>
+            prev
+                ? {
+                      ...prev,
+                      abilities: prev.abilities.filter(ability => ability.id !== id)
+                  }
+                : prev
+            );
+
+        } catch (error) {
+            console.error(error)
+            alert('Erro ao conectar ao servidor.')
+        }
+    }
+
     return (
         <div className='CharacterSheet-container'>
             <div className='CharacterSheet-header'>
@@ -282,27 +388,6 @@ function CharacterSheet() {
                                     <p>{character.defense}</p>
                                 )}
                             </div>
-                            <div className='SanityBar'>
-                                <img src={SanityBar} alt="barra de sanidade" className='sanityBar-img'/>
-                                <div className='sanityBar-content'>
-                                    <button onClick={() => handleSanityChange(1)}><img src={Add} alt="Aumentar"/></button>
-                                    <p className='sanity-current'>{currentSanity}</p>
-                                    <p className='sanity-divider'>/</p>
-                                    {isEditing ? (
-                                        <input
-                                            aria-label="sanity"
-                                            type="number"
-                                            className='sanity-max'
-                                            value={character.max_sanity}
-                                            onChange={e => setCharacter({ ...character, max_sanity: Number(e.target.value) })}
-                                            onBlur={e => updateCharacter({ max_sanity: Number(e.target.value) })}
-                                        />
-                                    ) : (
-                                        <p className='sanity-max'>{character.max_sanity}</p>
-                                    )}
-                                    <button onClick={() => handleSanityChange(-1)}><img src={Minus} alt="Diminuir"/></button>
-                                </div>
-                            </div>
                         </div>
 
                         <div className='profile-info'>
@@ -319,27 +404,33 @@ function CharacterSheet() {
                             )}
                         </div>
 
-                        <div className='lifeBar-container'>
-                            <img src={Heart} alt="vida do personagem"/>
-                            <div className='lifeBar'>
-                                <button onClick={() => handleHpChange(-1)}><img src={ArrowLeft} alt="Diminuir"/></button>
-                                {isEditing ? (
-                                    <span>
-                                        {currentHp} /{' '}
-                                        <input
-                                            aria-label="hp"
-                                            type="number"
-                                            value={character.max_hp}
-                                            onChange={e => setCharacter({ ...character, max_hp: Number(e.target.value) })}
-                                            onBlur={e => updateCharacter({ max_hp: Number(e.target.value) })}
-                                        />
-                                    </span>
-                                ) : (
-                                    <span>{currentHp} / {character.max_hp}</span>
-                                )}
-                                <button onClick={() => handleHpChange(1)}><img src={ArrowRight} alt="Aumentar"/></button>
-                            </div>
-                        </div>
+                        <StatBar
+                            variant="hp"
+                            icon={Heart}
+                            iconAlt="vida do personagem"
+                            current={currentHp}
+                            max={character.max_hp}
+                            isEditing={isEditing}
+                            onDec={() => handleHpChange(-1)}
+                            onInc={() => handleHpChange(1)}
+                            onMaxChange={v => setCharacter({ ...character, max_hp: v })}
+                            onMaxBlur={v => updateCharacter({ max_hp: v })}
+                            ariaLabel="hp"
+                        />
+
+                        <StatBar
+                            variant="sanity"
+                            icon={SanityIcon}
+                            iconAlt="sanidade do personagem"
+                            current={currentSanity}
+                            max={character.max_sanity}
+                            isEditing={isEditing}
+                            onDec={() => handleSanityChange(-1)}
+                            onInc={() => handleSanityChange(1)}
+                            onMaxChange={v => setCharacter({ ...character, max_sanity: v })}
+                            onMaxBlur={v => updateCharacter({ max_sanity: v })}
+                            ariaLabel="sanity"
+                        />
                     </div>
 
                     {character.attributes.map(attr => (
@@ -395,6 +486,16 @@ function CharacterSheet() {
                                     onChange={e => patchSkill(skill.id, { value: Number(e.target.value) })}
                                     onBlur={() => saveSkill(skill)}
                                 />
+
+                                {isEditing && (
+                                <button
+                                    type="button"
+                                    onClick={() => deleteHandleSkill(skill.id)}
+                                    className="delete-button"
+                                >
+                                    <img src={Trash} alt="Excluir skill" />
+                                </button>
+                                )}
                             </li>
                         ))}
                     </ol>
@@ -413,39 +514,51 @@ function CharacterSheet() {
                     <ol>
                         {character.abilities.map(ability => (
                             isEditing ? (
-                                <li key={ability.id} className='AbilityCard-container ability-edit-item'>
-                                    <label htmlFor={`ability-image-${ability.id}`} className="ability-image-label">
-                                        <img
-                                            src={ability.image ? getImageUrl(ability.image, 'abilities') : "https://placehold.co/50x50"}
-                                            alt="Imagem da habilidade"
-                                        />
+                        <li key={ability.id} className='AbilityCard-container ability-edit-item'>
+                            <label htmlFor={`ability-image-${ability.id}`} className="ability-image-label">
+                                <img
+                                    src={ability.image ? getImageUrl(ability.image, 'abilities') : "https://placehold.co/50x50"}
+                                    alt="Imagem da habilidade"
+                                />
 
-                                        <input
-                                            id={`ability-image-${ability.id}`}
-                                            type="file"
-                                            accept='image/*'
-                                            aria-label="imagem"
-                                            onChange={e => handleAbilityImageChange(ability, e)}
-                                            hidden
-                                        />
-                                    </label>
-                                    <div className='AbilityCard-text'>
-                                        <input
-                                            type="text"
-                                            className='ability-name-input'
-                                            aria-label="nome da habilidade"
-                                            value={ability.name}
-                                            onChange={e => patchAbility(ability.id, { name: e.target.value })}
-                                            onBlur={() => saveAbility(ability)}
-                                        />
-                                        <textarea className='ability-description'
-                                            aria-label="descrição da habilidade"
-                                            value={ability.description}
-                                            onChange={e => patchAbility(ability.id, { description: e.target.value })}
-                                            onBlur={() => saveAbility(ability)}
-                                        />
-                                    </div>
-                                </li>
+                                <div className="image-upload-overlay">
+                                    <img src={UploadIcon} alt="Trocar imagem" className="ability-upload-icon" />
+                                </div>
+
+                                <input
+                                    id={`ability-image-${ability.id}`}
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={e => handleAbilityImageChange(ability, e)}
+                                    hidden
+                                />
+                            </label>
+                            <div className='AbilityCard-text'>
+                                <input
+                                    type="text"
+                                    className='ability-name-input'
+                                    aria-label="nome da habilidade"
+                                    value={ability.name}
+                                    onChange={e => patchAbility(ability.id, { name: e.target.value })}
+                                    onBlur={() => saveAbility(ability)}
+                                />
+                                <textarea className='ability-description'
+                                    aria-label="descrição da habilidade"
+                                    value={ability.description}
+                                    onChange={e => patchAbility(ability.id, { description: e.target.value })}
+                                    onBlur={() => saveAbility(ability)}
+                                />
+                            </div>
+                            {isEditing && (
+                                <button
+                                    type="button"
+                                    onClick={() => deleteHandleAbility(ability.id)}
+                                    className="delete-ability-button"
+                                >
+                                    <img src={Trash} alt="Excluir habilidade" />
+                                </button>
+                            )}
+                        </li>
                             ) : (
                                 <AbilityCard
                                     title={ability.name}
