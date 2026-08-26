@@ -4,7 +4,6 @@ Aplicação web para criação e gerenciamento de fichas de personagens de RPG.
 
 O projeto foi desenvolvido como uma aplicação **full-stack**, com uma API REST em **Python/Flask** e uma interface web em **React**, permitindo cadastrar usuários, criar personagens e gerenciar seus atributos, habilidades e informações da ficha.
 
-🔗 **[Acessar aplicação](https://ficha-web-app.vercel.app/)**
 
 ## ✨ Funcionalidades
 
@@ -43,7 +42,6 @@ O projeto foi desenvolvido como uma aplicação **full-stack**, com uma API REST
 
 * **Git**
 * **GitHub**
-* **Vercel**
 
 ## 📁 Estrutura do projeto
 
