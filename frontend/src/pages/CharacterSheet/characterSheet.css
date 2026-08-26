@@ -140,7 +140,6 @@ body {
 /* Botão de dado (canto superior direito da foto) */
 .dice-button {
   position: relative;
-  top: 0;
   right: 0;
   border: none;
   background: none;
@@ -188,7 +187,6 @@ body {
 .Shield {
   position: absolute;
   top: auto;
-  right: -10px;
   width: 3rem;
   height: 3rem;
   display: flex;
@@ -394,7 +392,7 @@ body {
 /* ============ Coluna 2: Perícias ============ */
 .CharacterSheet-skill h2 {
   text-align: center;
-  margin: 0 0 1rem 0;
+  margin: 0 0 1rem;
   font-size: 1.4rem;
   font-weight: 800;
   color: #1a1a1a;
@@ -402,7 +400,6 @@ body {
 .CharacterSheet-skill ol {
   list-style: none;
   padding: 0;
-  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
@@ -448,7 +445,7 @@ body {
 
 .CharacterSheet-abilities-inventory h2 {
   text-align: center;
-  margin: 0 0 0.6rem 0;
+  margin: 0 0 0.6rem;
   font-size: 1.4rem;
   font-weight: 800;
   color: #1a1a1a;
@@ -474,7 +471,6 @@ body {
   font-size: 0.95rem;
   background: #dfe8f1;
   color: #1a1a1a;
-  resize: vertical;
   outline: none;
   resize: none;
 }
@@ -564,7 +560,6 @@ textarea.ability-description {
   font-size: 0.95rem;
   background: #dfe8f1;
   color: #1a1a1a;
-  resize: vertical;
   outline: none;
   resize: none;
 }
