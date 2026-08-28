@@ -1,7 +1,7 @@
 from database.connection import db
 
 class Ability(db.Model):
-    __tablename__ = 'ability'
+    __tablename__ = 'abilities'
 
     id = db.Column(db.Integer, primary_key=True)
 

@@ -1,7 +1,7 @@
 from database.connection import db
 
 class Skill(db.Model):
-    __tablename__ = 'skill'
+    __tablename__ = 'skills'
 
     id = db.Column(db.Integer, primary_key=True)
 

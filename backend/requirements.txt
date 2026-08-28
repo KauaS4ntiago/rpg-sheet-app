@@ -6,3 +6,5 @@ flask-bcrypt
 pymysql
 python-dotenv
 flask_cors
+Flask-Migrate
+Pillow

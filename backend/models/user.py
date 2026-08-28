@@ -12,5 +12,6 @@ class User(db.Model):
     characters = db.relationship(
         'Character',
         back_populates='user',
-        cascade='all, delete-orphan'
+        cascade='all, delete-orphan',
+        passive_deletes=True
     )

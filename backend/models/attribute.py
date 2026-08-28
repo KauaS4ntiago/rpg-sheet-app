@@ -1,7 +1,7 @@
 from database.connection import db
 
 class Attribute(db.Model):
-    __tablename__ = 'attribute'
+    __tablename__ = 'attributes'
 
     id = db.Column(db.Integer, primary_key=True)
 

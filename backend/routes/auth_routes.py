@@ -3,8 +3,6 @@ from models.user import User
 from utils.generic_crud import GenericCrud
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import create_access_token
-import jwt
-import datetime
 
 auth_bp = Blueprint('auth',__name__,url_prefix='/auth')
 
@@ -16,14 +14,34 @@ def register():
     try:
 
         data = request.get_json()
-        existing_user = User.query.filter_by(email=data['email']).first()
+        
+        if not data:
+                return jsonify({
+                    "error": "Dados inválidos"
+            }), 400            
+        
+        name = data.get('name')
+        email = data.get('email')
+        password = data.get('password')
+        
+        if not name or not email or not password: 
+            return jsonify({
+                "error": "Dados inválidos"
+            }), 400
+                        
+        if '@' not in email or '.com' not in email or len(password) < 8: 
+            return jsonify({
+                "error": "Dados inválidos"
+            }), 400
+        
+        existing_user = User.query.filter_by(email=email).first()
         
         if existing_user:
             return jsonify({
                 "error": "Usuário já cadastrado"
             }), 400
 
-        data['password'] = bcrypt.generate_password_hash(data['password']).decode('utf-8')
+        data['password'] = bcrypt.generate_password_hash(password).decode('utf-8')
         user = crud.create(data)
         
         token = create_access_token(identity=str(user.id))
@@ -45,14 +63,33 @@ def login():
     try:
     
         data = request.get_json()
-        user = User.query.filter_by(email=data['email']).first()    
+        
+        if not data:
+            return jsonify({
+                "error": "Dados inválidos"
+        }), 400 
+        
+        email = data.get('email')
+        password = data.get('password')
+        
+        if not email or not password: 
+            return jsonify({
+                    "error": "Preencha todos os campos"
+            }), 400
+            
+        if '@' not in email or '.com' not in email or len(password) < 8: 
+            return jsonify({
+                "error": "Dados inválidos"
+            }), 400
+            
+        user = User.query.filter_by(email=email).first()    
         
         if not user:
             return jsonify({
-                "error": "Usuário não encontrado"
-            }), 400
+                "error": "Dados inválidos"
+            }), 401
         
-        authentication = bcrypt.check_password_hash(user.password, data['password'])
+        authentication = bcrypt.check_password_hash(user.password, password)
         
         if authentication:
             token = create_access_token(identity=str(user.id))
@@ -63,8 +100,8 @@ def login():
             }), 200
         
         return jsonify({
-            "error": "Acesso negado"
-        }), 400
+            "error": "Dados inválidos"
+        }), 401
         
     except ValueError as e:
 
