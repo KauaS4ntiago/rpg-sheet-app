@@ -10,28 +10,34 @@ from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 
 
-app = Flask(__name__)
+def create_app(testing=False):
+    
+    app = Flask(__name__)
+    
+    init_db(app, testing)
+    
+    app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024  # 5 MB
 
-init_db(app)
+    CORS(app)
 
-app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024  # 5 MB
+    jwt_secret = os.getenv("JWT_SECRET_KEY")
 
-CORS(app)
+    if not jwt_secret:
+        raise RuntimeError("JWT_SECRET_KEY não foi configurada.")
 
-jwt_secret = os.getenv("JWT_SECRET_KEY")
+    app.config['JWT_SECRET_KEY'] = jwt_secret
+    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=1)
 
-if not jwt_secret:
-    raise RuntimeError("JWT_SECRET_KEY não foi configurada.")
+    jwt = JWTManager(app)
 
-app.config['JWT_SECRET_KEY'] = jwt_secret
-app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=1)
+    migrate = Migrate(app, db)
 
-jwt = JWTManager(app)
+    register_routes(app)
+    
+    return app
 
-migrate = Migrate(app, db)
 
-register_routes(app)
-
+app = create_app()
 
 if __name__ == '__main__':
     app.run(
@@ -39,3 +45,7 @@ if __name__ == '__main__':
         port=5000,
         debug=False
     )
+
+    
+
+
