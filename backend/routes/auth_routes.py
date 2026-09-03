@@ -17,7 +17,7 @@ def register():
         
         if not data:
                 return jsonify({
-                    "error": "Dados inválidos"
+                    "error": "Dados vazios"
             }), 400            
         
         name = data.get('name')
@@ -26,13 +26,19 @@ def register():
         
         if not name or not email or not password: 
             return jsonify({
-                "error": "Dados inválidos"
+                "error": "Dados incompletos"
             }), 400
                         
-        if '@' not in email or '.com' not in email or len(password) < 8: 
+        if '@' not in email or '.com' not in email: 
             return jsonify({
-                "error": "Dados inválidos"
+                "error": "Email inválido"
             }), 400
+        
+        if len(password) < 8:
+            return jsonify({
+                "error": "Senha inválida"
+            }), 400
+        
         
         existing_user = User.query.filter_by(email=email).first()
         
@@ -66,7 +72,7 @@ def login():
         
         if not data:
             return jsonify({
-                "error": "Dados inválidos"
+                "error": "Dados vazios"
         }), 400 
         
         email = data.get('email')
@@ -74,12 +80,17 @@ def login():
         
         if not email or not password: 
             return jsonify({
-                    "error": "Preencha todos os campos"
+                    "error": "Dados incompletos"
             }), 400
             
-        if '@' not in email or '.com' not in email or len(password) < 8: 
+        if '@' not in email or '.com' not in email: 
             return jsonify({
-                "error": "Dados inválidos"
+                "error": "Email inválido"
+            }), 400
+        
+        if len(password) < 8:
+            return jsonify({
+                "error": "Senha inválida"
             }), 400
             
         user = User.query.filter_by(email=email).first()    
