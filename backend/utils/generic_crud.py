@@ -37,7 +37,7 @@ class GenericCrud:
         if not isinstance(id, int):
             raise ValueError("ID inválido")
 
-        obj = self.model.query.get(id)
+        obj = db.session.get(self.model, id)
 
         if not obj:
             raise ValueError("Registro não encontrado")

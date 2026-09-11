@@ -39,3 +39,15 @@ def test_adm(app):
 
     db.session.delete(user)
     db.session.commit()
+    
+@pytest.fixture
+def auth_headers(client, test_adm):
+    json = {
+        "email": test_adm["user"].email,
+        "password": test_adm["password"]
+    }
+    response = client.post("/auth/login",json=json)
+    
+    return {
+            "Authorization": f"Bearer {response.json['token']}"
+    }
