@@ -18,12 +18,11 @@ crud = GenericCrud(Skill)
 
 
 # POST - CRIAR
-
 @skills_bp.route('', methods=['POST'])
 @jwt_required()
 def create_skill():
     try:
-        data = request.get_json()
+        data = request.get_json(silent=True)
 
         if not data:
             return jsonify({
@@ -34,12 +33,27 @@ def create_skill():
         value = data.get('value')
         character_id = data.get('character_id')
 
-        if not name or value is None or character_id is None:
+        if not isinstance(name, str) or not name.strip():
             return jsonify({
-                "error": "Preencha todos os campos obrigatórios"
+                "error": "Nome da perícia é obrigatório"
             }), 400
 
-        if not isinstance(value, int) or not -20 <= value <= 20:
+        if value is None:
+            return jsonify({
+                "error": "Valor da perícia é obrigatório"
+            }), 400
+
+        if character_id is None:
+            return jsonify({
+                "error": "Personagem é obrigatório"
+            }), 400
+
+        if isinstance(value, bool) or not isinstance(value, int):
+            return jsonify({
+                "error": "Valor da perícia deve ser um número inteiro"
+            }), 400
+
+        if not -20 <= value <= 20:
             return jsonify({
                 "error": "Valor da perícia deve estar entre -20 e 20"
             }), 400
@@ -57,7 +71,7 @@ def create_skill():
             }), 404
 
         skill_data = {
-            "name": name,
+            "name": name.strip(),
             "value": value,
             "character_id": character_id
         }
@@ -76,12 +90,11 @@ def create_skill():
 
 
 # PUT - ATUALIZAR POR ID
-
 @skills_bp.route('/<int:id>', methods=['PUT'])
 @jwt_required()
 def update_skill(id):
     try:
-        data = request.get_json()
+        data = request.get_json(silent=True)
 
         if not data:
             return jsonify({
@@ -105,18 +118,28 @@ def update_skill(id):
         name = data.get('name')
         value = data.get('value')
 
-        if not name or value is None:
+        if not isinstance(name, str) or not name.strip():
             return jsonify({
-                "error": "Preencha todos os campos obrigatórios"
+                "error": "Nome da perícia é obrigatório"
             }), 400
 
-        if not isinstance(value, int) or not -20 <= value <= 20:
+        if value is None:
+            return jsonify({
+                "error": "Valor da perícia é obrigatório"
+            }), 400
+
+        if isinstance(value, bool) or not isinstance(value, int):
+            return jsonify({
+                "error": "Valor da perícia deve ser um número inteiro"
+            }), 400
+
+        if not -20 <= value <= 20:
             return jsonify({
                 "error": "Valor da perícia deve estar entre -20 e 20"
             }), 400
 
         update_data = {
-            "name": name,
+            "name": name.strip(),
             "value": value
         }
 
@@ -136,7 +159,6 @@ def update_skill(id):
 
 
 # DELETE - DELETAR POR ID
-
 @skills_bp.route('/<int:id>', methods=['DELETE'])
 @jwt_required()
 def delete_skill(id):
