@@ -2,6 +2,7 @@
     display: flex;
     height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
+    transition: 0.5s;
 
     img {
         width: 50%;
@@ -30,6 +31,7 @@
             flex-direction: column;
             align-items: center;
             gap: 35px;
+            width:80%;
 
             .sign-in {
                 background-color: #7028F5;
@@ -75,40 +77,48 @@
                 }
             }
 
-            button {
+            .sign-in, .sign-up {
+                text-decoration: none;
+                text-align: center;
                 border: none;
                 border-radius: 14px;
-                padding: 25px 200px 25px 200px;
+                padding: 25px 115px 25px 115px;
                 font-weight: bold;
                 font-size: 30px;
                 cursor: pointer;
                 width: 100%;
+                box-sizing: border-box;
             }
         }
     }
 }
- 
- @media (max-width: 1017px) {
-  .welcome-container .welcome-content h1 {
-    font-size: 42px;
-  }
 
-  .welcome-container .welcome-content .button-container {
-    gap: 20px;
-  }
+@media (max-width: 1181px) {
+  .welcome-container {
+    .welcome-content {
+      h1 {
+        font-size: 42px;
+      }
 
-  .welcome-container .welcome-content .button-container button {
-    padding: 18px 100px;
-    font-size: 22px;
-  }
+      .button-container {
+        gap: 20px;
 
-  .welcome-container .welcome-content .button-container span {
-    font-size: 20px;
+        .sign-in,
+        .sign-up {
+          padding: 18px 100px;
+          font-size: 22px;
+        }
+
+        span {
+          font-size: 20px;
+        }
+      }
+    }
   }
 }
 
 
- @media (max-width: 768px) {
+@media (max-width: 750px) {
   .welcome-container {
     flex-direction: column;
     align-items: stretch;
@@ -126,7 +136,7 @@
         width: 100%;
         height: auto;
         padding: 20px 20px 40px;
-        box-sizing: border-box; 
+        box-sizing: border-box;
 
         h1 {
             font-size: 35px;
@@ -137,7 +147,7 @@
             width: 100%;
             gap: 10px;
 
-            button {
+            .sign-in, .sign-up {
                 padding: 16px 20px;
                 font-size: 18px;
                 width: 100%;
