@@ -31,25 +31,23 @@
             flex-direction: column;
             align-items: center;
             gap: 35px;
-            width:80%;
+            width:60%;
 
             .sign-in {
                 background-color: #7028F5;
                 color: #F2F2F2;
-                transform: scale(1);
                 transition: 0.5s;
                 &:hover {
-                    transform: scale(1.05);
+                    background-color: #4f11ca;
                 }
             }
 
             .sign-up {
                 background-color: #C4BDDA;
                 color: #231732;
-                transform: scale(1);
                 transition: 0.5s;
                 &:hover {
-                    transform: scale(1.05);
+                    background-color: #9b8ebc;
                 }
             }
 
@@ -118,7 +116,7 @@
 }
 
 
-@media (max-width: 750px) {
+@media (max-width: 936px) {
   .welcome-container {
     flex-direction: column;
     align-items: stretch;
