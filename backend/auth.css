@@ -55,10 +55,6 @@
             padding-bottom: 25px;
             width: 100%;
 
-            input {
-                font-size: 18px;
-            }
-
             label {
                 padding-top: 12px;
                 padding-left: 6px;
@@ -112,7 +108,6 @@
                     &:active,
                     &:focus {
                         border-color: #7028F5;
-                        background-color: #FFFFFF;
                     }
                 }
             }

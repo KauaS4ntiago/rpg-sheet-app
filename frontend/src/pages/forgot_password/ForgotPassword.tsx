@@ -3,6 +3,7 @@ import background_rpg from '../../assets/background-rpg-vertical.svg'
 import { ChevronLeft } from 'lucide-react';
 import {useNavigate } from 'react-router-dom';
 import { useState, useRef } from 'react';
+import AuthenticationTransition from '../../components/AuthenticationTransition'
 
 function ForgotPassword() {
     const navigate = useNavigate();
@@ -17,15 +18,15 @@ function ForgotPassword() {
     return (
         <div className="forgot-container">
             <img src={background_rpg} alt="RPG characters" className="background-image" />
-            <div className='forgot-content'>
+            <AuthenticationTransition className='forgot-content'>
                 <button className="return-button" type='button' onClick={() => navigate(-1)}><ChevronLeft/></button>
                 <h1>Password recovery</h1>
                 <span>Enter your registered email to receive the verification code.</span>
+                <form  className='email-wrapper'>
+                    <input type='text' placeholder='you@example.com'/>
+                    <button className="resend-button"type="submit">Send</button>
+                </form>
                 <form>
-                    <div className='email-wrapper'>
-                        <input type='text' placeholder='you@example.com'/>
-                        <button className="resend-button"type="button">Send</button>
-                    </div>
                     <div className='otp-container'>
                         { Array.from({ length: codeLength }).map((_, index) => (
                             <input
@@ -59,7 +60,7 @@ function ForgotPassword() {
                     </div>
                     <button className="input-button" type="submit">Continue</button>
                 </form>
-            </div>
+            </AuthenticationTransition>
         </div>
     )
 }

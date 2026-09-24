@@ -3,6 +3,7 @@ import background_rpg from '../../../assets/background-rpg-vertical.svg'
 import { Link } from 'react-router-dom'
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { usePasswordVisibility } from '../../../hooks/usePasswordVisibility';
+import AuthenticationTransition from '../../../components/AuthenticationTransition';
 
 function Login() {
     const passwordInput = usePasswordVisibility();
@@ -10,7 +11,7 @@ function Login() {
     return (
         <div className="auth-container">
             <img src={background_rpg} alt="RPG characters" className="auth-image" />
-            <div className="auth-content">
+            <AuthenticationTransition className="auth-content">
                 <h1>Login</h1>
                 <form>
                     <div className="input-container">
@@ -34,7 +35,7 @@ function Login() {
                     <button className="input-button">Sign in</button>                
                 </form>
                 <p>Don't have an account? <Link to="/register">Sign up</Link></p>
-            </div>
+            </AuthenticationTransition>
         </div>
     );
 }
