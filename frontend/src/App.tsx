@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
-import PageTransition from './components/PageTransition'
+import AuthenticationTransition from './components/AuthenticationTransition'
 import Welcome from './pages/welcome/Welcome'
 import ForgotPassword from './pages/forgot_password/ForgotPassword'
 import Login from './pages/auth/login/Login'
@@ -13,10 +13,10 @@ function App() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageTransition><Welcome /></PageTransition>} />
-        <Route path="/login" element={<PageTransition><Login /></PageTransition>} />
-        <Route path="/register" element={<PageTransition><Register /></PageTransition>} />
-        <Route path="/forgot-password" element={<PageTransition><ForgotPassword /></PageTransition>}
+        <Route path="/" element={<AuthenticationTransition><Welcome /></AuthenticationTransition>} />
+        <Route path="/login" element={<AuthenticationTransition><Login /></AuthenticationTransition>} />
+        <Route path="/register" element={<AuthenticationTransition><Register /></AuthenticationTransition>} />
+        <Route path="/forgot-password" element={<AuthenticationTransition><ForgotPassword /></AuthenticationTransition>} />
       </Routes>
     </AnimatePresence>
   )
