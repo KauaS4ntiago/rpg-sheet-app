@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { usePasswordVisibility } from '../../../hooks/usePasswordVisibility';
 import AuthenticationTransition from '../../../components/AuthenticationTransition';
 import ValidationMessage from '../../../components/ValidationMessage/ValidationMessage';
+import { useNotification } from '../../../contexts/NotificationContext';
 import { useState } from 'react';
 
 function Register() {
@@ -12,6 +13,7 @@ function Register() {
     const confirmPasswordInput = usePasswordVisibility();
     const [formData, setFormData] = useState({ name: '', email: '', password: '', confirmPassword: '' });
     const [errors, setErrors] = useState({ name: '', email: '', password: '', confirmPassword: '' });
+    const { showError, showSuccess } = useNotification();
 
     function validateFields(name: string, value: string) {
         switch (name) {
@@ -59,10 +61,41 @@ function Register() {
         });
     }
 
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        console.log(formData);
+        const hasErrors = Object.values(errors).some(
+            error => error !== ''
+        );
+
+        if (hasErrors) {
+            return;
+        }
+
+        try {
+            const response = await fetch('http://127.0.0.1:5000/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
+                    password: formData.password,
+                }),
+            });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            showError(data.error);
+            return;
+        }
+
+        showSuccess(data.message);
+        } catch (error) {
+            showError('Não foi possível conectar ao servidor, tente novamente mais tarde.');
+        }
     }
 
     return (

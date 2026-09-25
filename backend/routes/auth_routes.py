@@ -31,7 +31,7 @@ def register():
                         
         if '@' not in email: 
             return jsonify({
-                "error": "Email inválido, tente novamente."
+                "error": "Verifique o email tente novamente."
             }), 400
         
         if len(password) < 8:
@@ -85,19 +85,19 @@ def login():
             
         if '@' not in email or '.com' not in email: 
             return jsonify({
-                "error": "Email inválido"
+                "error": "Verifique o email e tente novamente."
             }), 400
         
         if len(password) < 8:
             return jsonify({
-                "error": "Senha inválida"
+                "error": "A senha deve conter no mínimo 8 digitos, tente novamente."
             }), 400
             
         user = User.query.filter_by(email=email).first()    
         
         if not user:
             return jsonify({
-                "error": "Dados inválidos"
+                "error": "E-mail ou senha incorretos. Por favor, verifique os dados e tente novamente."
             }), 401
         
         authentication = bcrypt.check_password_hash(user.password, password)
@@ -111,11 +111,11 @@ def login():
             }), 200
         
         return jsonify({
-            "error": "Dados inválidos"
+            "error": "E-mail ou senha incorretos. Por favor, verifique os dados e tente novamente."
         }), 401
         
-    except ValueError as e:
+    except ValueError:
 
         return jsonify({
-            "error": str(e)
+            "error": "Ocorreu um erro, tente novamente mais tarde."
         }), 400
