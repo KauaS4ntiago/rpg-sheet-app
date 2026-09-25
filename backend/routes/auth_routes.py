@@ -18,7 +18,7 @@ def register():
         if not data:
                 return jsonify({
                     "error": "Dados vazios"
-            }), 400            
+            }), 400   
         
         name = data.get('name')
         email = data.get('email')
@@ -29,14 +29,14 @@ def register():
                 "error": "Dados incompletos"
             }), 400
                         
-        if '@' not in email or '.com' not in email: 
+        if '@' not in email: 
             return jsonify({
-                "error": "Email inválido"
+                "error": "Email inválido, tente novamente."
             }), 400
         
         if len(password) < 8:
             return jsonify({
-                "error": "Senha inválida"
+                "error": "A senha deve conter no mínimo 8 digitos, tente novamente."
             }), 400
         
         
@@ -44,7 +44,7 @@ def register():
         
         if existing_user:
             return jsonify({
-                "error": "Usuário já cadastrado"
+                "error": "Usuário já cadastrado com esse email."
             }), 400
 
         data['password'] = bcrypt.generate_password_hash(password).decode('utf-8')
@@ -53,15 +53,15 @@ def register():
         token = create_access_token(identity=str(user.id))
         
         return jsonify({
-            "message": "Usuário criado",
+            "message": "Cadastro realizado com sucesso!",
             "token": token,
             "user_id": user.id
         }), 201
 
-    except ValueError as e:
+    except ValueError:
 
         return jsonify({
-            "error": str(e)
+            "error": "Ocorreu um erro, tente novamente mais tarde."
         }), 400
 
 @auth_bp.route('/login', methods=['POST'])

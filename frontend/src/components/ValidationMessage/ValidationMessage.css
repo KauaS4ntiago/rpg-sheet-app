@@ -1,0 +1,78 @@
+.validation-message {
+    position: absolute;
+
+    top: calc(100% + 8px);
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    width: max-content;
+    max-width: min(350px, calc(100vw - 30px));
+
+    padding: 8px 10px;
+
+    border-radius: 8px;
+
+    background-color: #1f1f1f;
+    color: #f1f1f1;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+
+    animation: validation-message-in 0.2s ease-out;
+}
+
+.validation-message::before {
+    content: '';
+
+    position: absolute;
+
+    top: -6px;
+    left: 50%;
+
+    width: 12px;
+    height: 12px;
+
+    background-color: #1f1f1f;
+
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.validation-message svg {
+    width: 18px;
+    height: 18px;
+
+    flex-shrink: 0;
+
+    color: #f1c40f;
+
+    position: relative;
+    z-index: 1;
+}
+
+.validation-message span {
+    font-size: 13px;
+    line-height: 1.3;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes validation-message-in {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
