@@ -3,7 +3,7 @@ import background_rpg from '../../assets/background-rpg-vertical.svg'
 import { ChevronLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import AuthenticationTransition from '../../components/AuthenticationTransition'
+import AuthenticationTransition from '../../components/Animations/AuthenticationTransition'
 import OtpInput from '../../components/OtpInput';
 
 function ForgotPassword() {

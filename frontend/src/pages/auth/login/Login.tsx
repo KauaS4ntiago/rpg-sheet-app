@@ -3,7 +3,7 @@ import background_rpg from '../../../assets/background-rpg-vertical.svg'
 import { Link } from 'react-router-dom'
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { usePasswordVisibility } from '../../../hooks/usePasswordVisibility';
-import AuthenticationTransition from '../../../components/AuthenticationTransition';
+import AuthenticationTransition from '../../../components/Animations/AuthenticationTransition';
 import ValidationMessage from '../../../components/ValidationMessage/ValidationMessage';
 import { useNotification } from '../../../contexts/NotificationContext';
 import { useState } from 'react';

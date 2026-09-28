@@ -5,6 +5,8 @@ import ForgotPassword from './pages/forgot_password/ForgotPassword'
 import Login from './pages/auth/login/Login'
 import Register from './pages/auth/register/Register'
 import './App.css'
+import Characters from './pages/characters/Characters'
+import Layout from './layouts/Layout'
 
 function App() {
   const location = useLocation()
@@ -16,6 +18,12 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route element={<Layout />}>
+          <Route path="/characters" element={<Characters />} />
+          <Route path="/company" element={<h1>Company Page</h1>} />
+          <Route path="/master" element={<h1>Master Page</h1>} />
+        </Route>
+        <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
     </AnimatePresence>
   )

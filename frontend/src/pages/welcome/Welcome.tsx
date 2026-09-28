@@ -1,7 +1,7 @@
 import './Welcome.css'
 import background_rpg from "../../assets/background-rpg-vertical.svg"
 import { Link } from 'react-router-dom';
-import AuthenticationTransition from '../../components/AuthenticationTransition';
+import AuthenticationTransition from '../../components/Animations/AuthenticationTransition';
 
 function Welcome() {
 
