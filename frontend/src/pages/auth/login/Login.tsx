@@ -3,7 +3,7 @@ import background_rpg from '../../../assets/background-rpg-vertical.svg'
 import { Link } from 'react-router-dom'
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { usePasswordVisibility } from '../../../hooks/usePasswordVisibility';
-import AuthenticationTransition from '../../../components/Animations/AuthenticationTransition';
+import VerticalTransition from '../../../components/Animations/VerticalTransition';
 import ValidationMessage from '../../../components/ValidationMessage/ValidationMessage';
 import { useNotification } from '../../../contexts/NotificationContext';
 import { useState } from 'react';
@@ -84,7 +84,7 @@ function Login() {
     return (
         <div className="auth-container">
             <img src={background_rpg} alt="RPG characters" className="auth-image" />
-            <AuthenticationTransition className="auth-content">
+            <VerticalTransition className="auth-content">
                 <h1>Login</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="input-container">
@@ -129,7 +129,7 @@ function Login() {
                     </button>
                 </form>
                 <p>Don't have an account? <Link to="/register">Sign up</Link></p>
-            </AuthenticationTransition>
+            </VerticalTransition>
         </div>
     );
 }

@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    font-family: Inter;
 }
 
 html, body {
@@ -10,4 +11,22 @@ html, body {
 body {
     min-height: 100vh;
     background: linear-gradient(to bottom, #585858 0%, #1B1B1B 88%);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #27232C transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #27232C;
+  border-radius: 10px;
 }

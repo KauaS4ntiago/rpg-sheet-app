@@ -3,7 +3,7 @@ import background_rpg from '../../assets/background-rpg-vertical.svg'
 import { ChevronLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import AuthenticationTransition from '../../components/Animations/AuthenticationTransition'
+import VerticalTransition from '../../components/Animations/VerticalTransition'
 import OtpInput from '../../components/OtpInput';
 
 function ForgotPassword() {
@@ -64,7 +64,7 @@ function ForgotPassword() {
     return (
         <div className="forgot-container">
             <img src={background_rpg} alt="RPG characters" className="background-image" />
-            <AuthenticationTransition className='forgot-content'>
+            <VerticalTransition className='forgot-content'>
                 <button className="return-button" type='button' onClick={() => navigate('/login')}><ChevronLeft /></button>
                 <h1>Password recovery</h1>
                 <span>
@@ -86,7 +86,7 @@ function ForgotPassword() {
                     {isCodeSent && <OtpInput code={code} setCode={setCode}/>}
                     <button className="input-button" type="submit" disabled={!isCodeSent || code.length !== 6}>Continue</button>
                 </form>
-            </AuthenticationTransition>
+            </VerticalTransition>
         </div>
     )
 }

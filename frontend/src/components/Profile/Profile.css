@@ -1,0 +1,222 @@
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 220px;
+    flex-shrink: 0;
+    padding-top: 40px;
+    box-sizing: border-box;
+    color: #f1f1f1;
+    transition: 0.5s;
+
+    .profile-button {
+        cursor: pointer;
+        background: none;
+        border: transparent;
+        color: #f1f1f1;
+        border-radius: 80px;
+
+        img {
+            border-radius: 50%;
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+        }
+    }
+
+    .profile-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 999;
+    }
+
+    .profile-card-wrapper {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .profile-card {
+        display: flex;
+        position: fixed;
+        left: 310px;
+        top: 40px;
+        min-width: auto;
+        z-index: 1000;
+        gap: 10px;
+
+        .profile-card-content {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            background-color: #27232C;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        /* FOTO */
+
+        .photo-wrapper {
+            position: relative;
+            width: 260px;
+            aspect-ratio: 1 / 1;
+            flex-shrink: 0;
+            overflow: hidden;
+            cursor: pointer;
+            border-radius: 6px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+                transition: filter 0.3s ease;
+            }
+
+            .photo-overlay {
+                position: absolute;
+                inset: 0;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                background: rgba(0, 0, 0, 0.35);
+                color: #ffffff;
+
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            &:hover {
+                img {
+                    filter: brightness(0.65);
+                }
+
+                .photo-overlay {
+                    opacity: 1;
+                }
+            }
+        }
+
+        /* BOTÃO DE VOLTAR */
+
+        .return-button {
+            background: none;
+            color: #f1f1f1;
+            border: transparent;
+            cursor: pointer;
+        }
+
+        /* CONTAINER DOS INPUTS */
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            /* Cada label + input é um grupo */
+
+            .input-group {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+
+                label {
+                    padding: 0 6px;
+                    font-size: 17px;
+                    font-weight: bold;
+                    box-sizing: border-box;
+                }
+            }
+
+            input {
+                font-size: 16px;
+            }
+
+            /* INPUT */
+
+            .input-wrapper {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+
+                .input-icon {
+                    position: absolute;
+                    top: 50%;
+                    left: 14px;
+                    transform: translateY(-50%);
+                    width: 20px;
+                    height: 20px;
+                    color: #888;
+                }
+
+                .profile-input {
+                    padding: 10px 40px;
+                    outline: none;
+                    border: 2px transparent solid;
+                    border-radius: 10px;
+                    width: 100%;
+                    box-sizing: border-box;
+                    transition: 0.5s;
+
+                    &:active,
+                    &:focus {
+                        border-color: #7028F5;
+                        background-color: #FFFFFF;
+                    }
+                }
+            }
+
+            /* FORMULÁRIO */
+
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            /* BOTÕES */
+
+            button {
+                text-decoration: none;
+                text-align: center;
+                border: none;
+                border-radius: 5px;
+                font-weight: bold;
+                font-size: 20px;
+                padding: 8px 12px;
+                cursor: pointer;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            /* SAVE */
+
+            .submit-button {
+                background-color: #7028F5;
+                color: #F2F2F2;
+                transition: 0.5s;
+                margin-top: 5px;
+
+                &:hover {
+                    background-color: #4f11ca;
+                }
+            }
+
+            /* RESET PASSWORD */
+
+            .reset-password-button {
+                background-color: #C4BDDA;
+                color: #231732;
+                transition: 0.5s;
+                margin-top: 5px;
+
+                &:hover {
+                    background-color: #9b8ebc;
+                }
+            }
+        }
+    }
+}

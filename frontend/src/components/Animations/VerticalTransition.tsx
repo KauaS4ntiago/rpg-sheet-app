@@ -16,13 +16,13 @@ const pageVariants = {
     }
 };
 
-interface AuthenticationTransitionProps {
+interface VerticalTransitionProps {
     children: ReactNode;
     className?: string;
     style?: MotionStyle; /* Usa o tipo oficial do framer-motion */
 }
 
-function AuthenticationTransition({ children, className, style }: AuthenticationTransitionProps) {
+function VerticalTransition({ children, className, style }: VerticalTransitionProps) {
     return (
         <motion.div
             variants={pageVariants}
@@ -38,4 +38,4 @@ function AuthenticationTransition({ children, className, style }: Authentication
     );
 }
 
-export default AuthenticationTransition;
+export default VerticalTransition;

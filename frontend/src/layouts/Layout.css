@@ -1,6 +1,7 @@
 .layout-container {
     display: flex;
     height: 100vh;
+    transition: 0.5s;
 
     main {
         flex: 1;
